@@ -3,6 +3,11 @@ const mobileMenu = document.querySelector(".mobile-menu");
 const counters = document.querySelectorAll("[data-count]");
 const donationForm = document.querySelector("[data-donation-form]");
 const impactResult = document.querySelector("[data-impact-result]");
+const mediaTrack = document.querySelector("[data-media-track]");
+const mediaSlides = mediaTrack ? Array.from(mediaTrack.querySelectorAll(".media-slide")) : [];
+const mediaDots = Array.from(document.querySelectorAll("[data-media-dots] button"));
+const mediaPrev = document.querySelector("[data-media-prev]");
+const mediaNext = document.querySelector("[data-media-next]");
 
 menuButton?.addEventListener("click", () => {
   const isOpen = menuButton.getAttribute("aria-expanded") === "true";
@@ -65,3 +70,56 @@ donationForm?.addEventListener("submit", (event) => {
     `;
   }
 });
+
+if (mediaTrack && mediaSlides.length) {
+  let activeMediaIndex = 0;
+  let mediaTimer;
+
+  const showMediaSlide = (index) => {
+    activeMediaIndex = (index + mediaSlides.length) % mediaSlides.length;
+    mediaTrack.style.transform = `translateX(-${activeMediaIndex * 100}%)`;
+    mediaSlides.forEach((slide, slideIndex) => {
+      slide.classList.toggle("is-active", slideIndex === activeMediaIndex);
+    });
+    mediaDots.forEach((dot, dotIndex) => {
+      dot.classList.toggle("is-active", dotIndex === activeMediaIndex);
+    });
+  };
+
+  const restartMediaTimer = () => {
+    window.clearInterval(mediaTimer);
+    mediaTimer = window.setInterval(() => showMediaSlide(activeMediaIndex + 1), 4200);
+  };
+
+  mediaPrev?.addEventListener("click", () => {
+    showMediaSlide(activeMediaIndex - 1);
+    restartMediaTimer();
+  });
+
+  mediaNext?.addEventListener("click", () => {
+    showMediaSlide(activeMediaIndex + 1);
+    restartMediaTimer();
+  });
+
+  mediaDots.forEach((dot, index) => {
+    dot.addEventListener("click", () => {
+      showMediaSlide(index);
+      restartMediaTimer();
+    });
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (!document.body.contains(mediaTrack)) return;
+    if (event.key === "ArrowLeft") {
+      showMediaSlide(activeMediaIndex - 1);
+      restartMediaTimer();
+    }
+    if (event.key === "ArrowRight") {
+      showMediaSlide(activeMediaIndex + 1);
+      restartMediaTimer();
+    }
+  });
+
+  showMediaSlide(0);
+  restartMediaTimer();
+}
