@@ -641,6 +641,13 @@ h3 {
   font-weight: 900;
 }
 
+.donation-contact small {
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
 .donation-calculator,
 .volunteer-form {
   display: grid;
