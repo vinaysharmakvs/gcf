@@ -2021,6 +2021,57 @@ select:focus {
   overflow-wrap: anywhere;
 }
 
+.payment-scan-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(150px, 0.42fr);
+  gap: 16px;
+  align-items: center;
+  margin: 0 0 18px;
+  border: 1px solid rgba(22, 163, 122, 0.24);
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at 10% 0%, rgba(245, 184, 75, 0.18), transparent 12rem),
+    linear-gradient(135deg, rgba(22, 163, 122, 0.08), rgba(23, 103, 209, 0.07)),
+    #fff;
+  padding: 16px;
+}
+
+.payment-scan-card span {
+  color: var(--green);
+  font-size: 0.76rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.payment-scan-card strong {
+  display: block;
+  margin: 8px 0 6px;
+  font-size: 1.28rem;
+}
+
+.payment-scan-card p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.payment-scan-card a {
+  display: block;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: #fff;
+  padding: 8px;
+  box-shadow: 0 14px 34px rgba(16, 36, 56, 0.1);
+}
+
+.payment-scan-card img {
+  aspect-ratio: 1;
+  border-radius: 12px;
+  object-fit: contain;
+}
+
 .campaign-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -3274,6 +3325,15 @@ select:focus {
   .bank-card dl div {
     grid-template-columns: 1fr;
     gap: 4px;
+  }
+
+  .payment-scan-card {
+    grid-template-columns: 1fr;
+  }
+
+  .payment-scan-card a {
+    width: min(230px, 100%);
+    margin: 0 auto;
   }
 
   .map-frame iframe {
